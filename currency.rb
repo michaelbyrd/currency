@@ -15,7 +15,7 @@ class Currency
       code = self.code
       Currency.new(total, code)
     else
-      raise 'DifferentCurrencyCodeError'
+      raise DifferentCurrencyCodeError, 'DifferentCurrencyCodeError'
     end
   end
   def -(currency)
@@ -24,7 +24,7 @@ class Currency
       code = self.code
       Currency.new(total, code)
     else
-      raise 'DifferentCurrencyCodeError'
+      raise DifferentCurrencyCodeError, 'DifferentCurrencyCodeError'
     end
   end
 
@@ -39,7 +39,8 @@ class Currency
       raise 'WrongTypeOfArgument'
     end
   end
+end
 
-
+class DifferentCurrencyCodeError < StandardError
 
 end

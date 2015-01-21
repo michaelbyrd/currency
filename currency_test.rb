@@ -33,11 +33,9 @@ class CurrencyTest < MiniTest::Test
   def test_that_currency_with_different_codes_can_not_be_added
     a = Currency.new(5, :usd)
     b = Currency.new(5, :jpy)
-    begin
-    a + b
-    rescue Exception => ex
-      assert_equal 'DifferentCurrencyCodeError', ex.message
-    end
+    assert_raises(DifferentCurrencyCodeError) { a + b }
+    assert_raises(DifferentCurrencyCodeError) { a - b }
+
   end
 
   def test_that_currency_with_the_same_code_can_be_subtracted
