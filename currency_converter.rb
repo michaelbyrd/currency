@@ -12,6 +12,9 @@ class CurrencyConverter
       if currency.code == code
         currency
       else
+        if @rates[code] == nil || @rates[currency.code] == nil
+          raise UnknownCurrencyCodeError, "The currency code hash doesn't contain a currency code you are looking for"
+        end
         total = currency.amount / rates[currency.code] * rates[code]
         Currency.new(total, code)
       end
@@ -22,5 +25,9 @@ class CurrencyConverter
       raise TypeError, "CurrencyConverter.convert(curreny, code) where currency is a currency object or a string like '$12.00'"
     end
   end
+
+end
+
+class UnknownCurrencyCodeError < StandardError
 
 end

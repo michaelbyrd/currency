@@ -13,7 +13,7 @@ class CurrencyConverterTest < MiniTest::Test
   end
 
   def test_convert_method_takes_a_currency_object_and_a_code
-    c = CurrencyConverter.new(Hash.new)
+    c = CurrencyConverter.new({usd: 1.0})
     c.convert(Currency.new(1, :usd), :usd)
   end
 
@@ -35,13 +35,18 @@ class CurrencyConverterTest < MiniTest::Test
   end
 
   def test_convert_method_takes_a_string_and_a_code
-    c = CurrencyConverter.new(Hash.new)
+    c = CurrencyConverter.new({usd: 1.0})
     c.convert("$12.00", :usd)
   end
 
   def test_convert_method_will_not_take_improper_args
     c = CurrencyConverter.new(Hash.new)
     assert_raises(TypeError) {c.convert([],:usd)}
+  end
+
+  def test_convert_will_raise_an_error_if_has_does_not_contain_code
+    c = CurrencyConverter.new(Hash.new)
+    assert_raises(UnknownCurrencyCodeError) {c.convert(Currency.new(10.00, :usd), :can) }
   end
 
 
