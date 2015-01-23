@@ -1,8 +1,16 @@
 class Currency
+  SYMBOLS = {'$' => :usd }
   attr_reader :amount, :code
-  def initialize(amount, code)
-    @amount = amount
-    @code = code
+  def initialize(*args)
+    if args[0].is_a?(Float) || args[0].is_a?(Fixnum) && args[1].is_a?(Symbol)
+      @amount = args[0]
+      @code = args[1]
+    elsif args[0].is_a?(String)
+      regex = /(\W)\s*(\d+\.{0,1}\d{0,2})/
+      match = args[0].match regex
+      @amount = match[2].to_f
+      @code = SYMBOLS[match[1]]
+    end
   end
 
   def ==(currency)

@@ -78,4 +78,11 @@ class CurrencyTest < MiniTest::Test
     end
   end
 
+  def test_that_currency_can_be_initialize_with_a_string
+    c = Currency.new("$10.00")
+    d = Currency.new("$10")
+    assert_equal 10.00, c.amount
+    assert_equal 10, d.amount
+  end
+
 end
